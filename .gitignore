@@ -21,3 +21,13 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+
+# Editor / IDE config
+.vscode
+.arts
+.vs
+
+# Build output
+Debug
+Release
+x64
