@@ -122,7 +122,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)dataEngine\dataEngine.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)DataEngine\dataEngine.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -225,7 +225,7 @@
     <ResourceCompile Include="IGisMapEditor.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dataEngine\dataEngine.h" />
+    <ClInclude Include="..\DataEngine\dataEngine.h" />
     <ClInclude Include="src\AddLayerDlg.h" />
     <ClInclude Include="src\AlterBaseTool.h" />
     <ClInclude Include="src\ClassView.h" />
