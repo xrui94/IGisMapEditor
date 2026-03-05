@@ -30,7 +30,7 @@ public:	Layer(){type=-1;editing=visible=false;name=L"";}
 		void SetVisible(bool v){visible=v;}
 		void SetName(CString str){name=str;}
 		void SetEx(int Ltype,bool edit,bool view,CString Lname){type=Ltype;editing=edit;visible=view;name=Lname;}
-		Layer & operator =(Layer &l){type=l.type;editing=l.editing;visible=l.visible;name=l.name;return *this;}
+		Layer & operator =(const Layer &l){type=l.type;editing=l.editing;visible=l.visible;name=l.name;return *this;}
 
 protected:
 		int type;
@@ -53,7 +53,7 @@ public:	Basepic(){visible=false;fname=L"";ltx=lty=1.1;rbx=rby=0.9;w=h=0;}
 		int Width(){return w;}
 		void SetEx(bool view,CString Lname,int nw,int nh){visible=view;fname=Lname;w=nw;h=nh;}
 		void SetCordin(double lt_x,double lt_y,double rb_x,double rb_y){ltx=lt_x;rbx=rb_x;lty=lt_y;rby=rb_y;}
-		Basepic & operator =(Basepic &l){visible=l.visible;fname=l.fname;ltx=l.ltx;lty=l.lty;rbx=l.rbx;rby=l.rby;w=l.w;h=l.h;return *this;}
+		Basepic & operator =(const Basepic &l){visible=l.visible;fname=l.fname;ltx=l.ltx;lty=l.lty;rbx=l.rbx;rby=l.rby;w=l.w;h=l.h;return *this;}
 		CPoint GetCP(double x,double y)
 		{
 			double xop=(x-ltx)/(rbx-ltx);

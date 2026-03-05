@@ -44,7 +44,7 @@ CPoint CZoomManager::GPtoCP(DPoint p)
 	return pt;
 }
 
-void CZoomManager::zoomin(CPoint clt,CPoint crb)///放大
+void CZoomManager::zoomin(CPoint clt,CPoint crb)///锟脚达拷
 {
 	int newW=crb.x-clt.x;
 	int newH=crb.y-clt.y;
@@ -69,7 +69,7 @@ void CZoomManager::zoomin(CPoint clt,CPoint crb)///放大
 	return;
 }
 	   
-void CZoomManager::zoomout(CPoint clt,CPoint crb)///缩小
+void CZoomManager::zoomout(CPoint clt,CPoint crb)///锟斤拷小
 {
 	int newW=crb.x-clt.x;
 	int newH=crb.y-clt.y;
@@ -110,11 +110,11 @@ void CZoomManager::move(CPoint p,CPoint q)
 }
 float CZoomManager::xPrecision()
 {
-	return abs(rb.x-lt.x)/nwidth;
+	return fabs(rb.x-lt.x)/nwidth;
 }
 float CZoomManager::yPrecision()
 {
-	return abs(lt.y-rb.y)/nheight;
+	return fabs(lt.y-rb.y)/nheight;
 }
 //===================================================================================================================
 

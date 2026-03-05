@@ -194,7 +194,7 @@ void AlterPointTool::InitlizeObject(CDC* pDC)
 		this->hasInitlize=true;
 		this->gp=this->tempgp;
 	}
-	else if(!(abs(this->gp.point.x-this->tempgp.point.x)<=(float)(this->tempgp.size+5)*pZoom->ntimes()&&abs(this->gp.point.y-this->tempgp.point.y)<=(float)(this->tempgp.size+5)*pZoom->ntimes()))////
+	else if(!(fabs(this->gp.point.x-this->tempgp.point.x)<=(float)(this->tempgp.size+5)*pZoom->ntimes()&&fabs(this->gp.point.y-this->tempgp.point.y)<=(float)(this->tempgp.size+5)*pZoom->ntimes()))////
 	{
 		this->endflash(pDC);////
 		this->gp=this->tempgp;
