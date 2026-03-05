@@ -29,7 +29,7 @@ IGisMapEditor/
 └── imgs/                    # 项目截图
 ```
 
-## 四、 编译说明
+## 四、 编译构建说明
 
 ### 系统要求
 - Windows 10/11 操作系统
@@ -91,8 +91,7 @@ fabs(this->gp.point.x - this->tempgp.point.x)
 ```
 
 **修改文件：**
-- `IGisMapEditor/AlterBaseTool.cpp` (第 386 行)
-- `IGisMapEditor/AlterBaseTool.cpp` (第 535、567、1033、1035、1069、1071、1091、1093 行)
+- `IGisMapEditor/AlterBaseTool.cpp` (第 197 行)
 - `IGisMapEditor/Cordins.cpp` (第 113、117 行)
 
 #### 2. 赋值运算符缺少 const 修饰符问题
