@@ -28,6 +28,7 @@ $RECYCLE.BIN/
 .vs
 
 # Build output
+build
 Debug
 Release
 x64

@@ -76,12 +76,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)build\bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)build\bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,7 +122,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dataEngine.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)dataEngine\dataEngine.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -218,97 +222,95 @@
     <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AddLayerDlg.h" />
-    <ClInclude Include="AlterBaseTool.h" />
-    <ClInclude Include="ClassView.h" />
-    <ClInclude Include="ConnectDbDlg.h" />
-    <ClInclude Include="Cordins.h" />
-    <ClInclude Include="CreateDBDlg.h" />
-    <ClInclude Include="DataBase.h" />
-    <ClInclude Include="dataEngine.h" />
-    <ClInclude Include="DataTemplate.h" />
-    <ClInclude Include="DataTools.h" />
-    <ClInclude Include="DeleteDlg.h" />
-    <ClInclude Include="DjAnalyse.h" />
-    <ClInclude Include="FileView.h" />
-    <ClInclude Include="GeoPoint.h" />
-    <ClInclude Include="GraphStyles.h" />
-    <ClInclude Include="GraphTool.h" />
-    <ClInclude Include="IGisMapEditor.h" />
-    <ClInclude Include="IGisMapEditorDoc.h" />
-    <ClInclude Include="IGisMapEditorView.h" />
-    <ClInclude Include="ImageryDlg.h" />
-    <ClInclude Include="LineAttri.h" />
-    <ClInclude Include="LineGraphDlg.h" />
-    <ClInclude Include="LineTypeDlg.h" />
-    <ClInclude Include="LineView.h" />
-    <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="MapCordinDlg.h" />
-    <ClInclude Include="MarkerAttri.h" />
-    <ClInclude Include="MarkerView.h" />
-    <ClInclude Include="NewLayerDlg.h" />
-    <ClInclude Include="NoteDlg.h" />
-    <ClInclude Include="PointAttri.h" />
-    <ClInclude Include="PointView.h" />
-    <ClInclude Include="PolyAttri.h" />
-    <ClInclude Include="PolygonView.h" />
-    <ClInclude Include="RegionTypeDlg.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="SColorDlg.h" />
-    <ClInclude Include="SearchTool.h" />
-    <ClInclude Include="SetPointDlg.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="treelayers.h" />
-    <ClInclude Include="ViewTree.h" />
+    <ResourceCompile Include="IGisMapEditor.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AddLayerDlg.cpp" />
-    <ClCompile Include="AlterBaseTool.cpp" />
-    <ClCompile Include="ClassView.cpp" />
-    <ClCompile Include="ConnectDbDlg.cpp" />
-    <ClCompile Include="Cordins.cpp" />
-    <ClCompile Include="CreateDBDlg.cpp" />
-    <ClCompile Include="DataBase.cpp" />
-    <ClCompile Include="DataTemplate.cpp" />
-    <ClCompile Include="DataTools.cpp" />
-    <ClCompile Include="DeleteDlg.cpp" />
-    <ClCompile Include="DjAnalyse.cpp" />
-    <ClCompile Include="FileView.cpp" />
-    <ClCompile Include="GraphTool.cpp" />
-    <ClCompile Include="IGisMapEditor.cpp" />
-    <ClCompile Include="IGisMapEditorDoc.cpp" />
-    <ClCompile Include="IGisMapEditorView.cpp" />
-    <ClCompile Include="ImageryDlg.cpp" />
-    <ClCompile Include="LineAttri.cpp" />
-    <ClCompile Include="LineGraphDlg.cpp" />
-    <ClCompile Include="LineTypeDlg.cpp" />
-    <ClCompile Include="LineView.cpp" />
-    <ClCompile Include="MainFrm.cpp" />
-    <ClCompile Include="MapCordinDlg.cpp" />
-    <ClCompile Include="MarkerAttri.cpp" />
-    <ClCompile Include="MarkerView.cpp" />
-    <ClCompile Include="NewLayerDlg.cpp" />
-    <ClCompile Include="NoteDlg.cpp" />
-    <ClCompile Include="PointAttri.cpp" />
-    <ClCompile Include="PointView.cpp" />
-    <ClCompile Include="PolyAttri.cpp" />
-    <ClCompile Include="PolygonView.cpp" />
-    <ClCompile Include="RegionTypeDlg.cpp" />
-    <ClCompile Include="SColorDlg.cpp" />
-    <ClCompile Include="SearchTool.cpp" />
-    <ClCompile Include="SetPointDlg.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    <ClInclude Include="dataEngine\dataEngine.h" />
+    <ClInclude Include="src\AddLayerDlg.h" />
+    <ClInclude Include="src\AlterBaseTool.h" />
+    <ClInclude Include="src\ClassView.h" />
+    <ClInclude Include="src\ConnectDbDlg.h" />
+    <ClInclude Include="src\Cordins.h" />
+    <ClInclude Include="src\CreateDBDlg.h" />
+    <ClInclude Include="src\DataBase.h" />
+    <ClInclude Include="src\DataTemplate.h" />
+    <ClInclude Include="src\DataTools.h" />
+    <ClInclude Include="src\DeleteDlg.h" />
+    <ClInclude Include="src\DjAnalyse.h" />
+    <ClInclude Include="src\FileView.h" />
+    <ClInclude Include="src\GeoPoint.h" />
+    <ClInclude Include="src\GraphStyles.h" />
+    <ClInclude Include="src\GraphTool.h" />
+    <ClInclude Include="src\IGisMapEditor.h" />
+    <ClInclude Include="src\IGisMapEditorDoc.h" />
+    <ClInclude Include="src\IGisMapEditorView.h" />
+    <ClInclude Include="src\ImageryDlg.h" />
+    <ClInclude Include="src\LineAttri.h" />
+    <ClInclude Include="src\LineGraphDlg.h" />
+    <ClInclude Include="src\LineTypeDlg.h" />
+    <ClInclude Include="src\LineView.h" />
+    <ClInclude Include="src\MainFrm.h" />
+    <ClInclude Include="src\MapCordinDlg.h" />
+    <ClInclude Include="src\MarkerAttri.h" />
+    <ClInclude Include="src\MarkerView.h" />
+    <ClInclude Include="src\NewLayerDlg.h" />
+    <ClInclude Include="src\NoteDlg.h" />
+    <ClInclude Include="src\PointAttri.h" />
+    <ClInclude Include="src\PointView.h" />
+    <ClInclude Include="src\PolyAttri.h" />
+    <ClInclude Include="src\PolygonView.h" />
+    <ClInclude Include="src\RegionTypeDlg.h" />
+    <ClInclude Include="src\resource.h" />
+    <ClInclude Include="src\SColorDlg.h" />
+    <ClInclude Include="src\SearchTool.h" />
+    <ClInclude Include="src\SetPointDlg.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\treelayers.h" />
+    <ClInclude Include="src\ViewTree.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AddLayerDlg.cpp" />
+    <ClCompile Include="src\AlterBaseTool.cpp" />
+    <ClCompile Include="src\ClassView.cpp" />
+    <ClCompile Include="src\ConnectDbDlg.cpp" />
+    <ClCompile Include="src\Cordins.cpp" />
+    <ClCompile Include="src\CreateDBDlg.cpp" />
+    <ClCompile Include="src\DataBase.cpp" />
+    <ClCompile Include="src\DataTemplate.cpp" />
+    <ClCompile Include="src\DataTools.cpp" />
+    <ClCompile Include="src\DeleteDlg.cpp" />
+    <ClCompile Include="src\DjAnalyse.cpp" />
+    <ClCompile Include="src\FileView.cpp" />
+    <ClCompile Include="src\GraphTool.cpp" />
+    <ClCompile Include="src\IGisMapEditor.cpp" />
+    <ClCompile Include="src\IGisMapEditorDoc.cpp" />
+    <ClCompile Include="src\IGisMapEditorView.cpp" />
+    <ClCompile Include="src\ImageryDlg.cpp" />
+    <ClCompile Include="src\LineAttri.cpp" />
+    <ClCompile Include="src\LineGraphDlg.cpp" />
+    <ClCompile Include="src\LineTypeDlg.cpp" />
+    <ClCompile Include="src\LineView.cpp" />
+    <ClCompile Include="src\MainFrm.cpp" />
+    <ClCompile Include="src\MapCordinDlg.cpp" />
+    <ClCompile Include="src\MarkerAttri.cpp" />
+    <ClCompile Include="src\MarkerView.cpp" />
+    <ClCompile Include="src\NewLayerDlg.cpp" />
+    <ClCompile Include="src\NoteDlg.cpp" />
+    <ClCompile Include="src\PointAttri.cpp" />
+    <ClCompile Include="src\PointView.cpp" />
+    <ClCompile Include="src\PolyAttri.cpp" />
+    <ClCompile Include="src\PolygonView.cpp" />
+    <ClCompile Include="src\RegionTypeDlg.cpp" />
+    <ClCompile Include="src\SColorDlg.cpp" />
+    <ClCompile Include="src\SearchTool.cpp" />
+    <ClCompile Include="src\SetPointDlg.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="treelayers.cpp" />
-    <ClCompile Include="ViewTree.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="IGisMapEditor.rc" />
+    <ClCompile Include="src\treelayers.cpp" />
+    <ClCompile Include="src\ViewTree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

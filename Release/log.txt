@@ -1,5 +1,0 @@
-4
-MING-PC\SQLEXPRESS
-IgisDB
-mingsa
-mingsa
