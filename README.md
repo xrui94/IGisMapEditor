@@ -2,17 +2,17 @@
 
 ![screenshot_01.png](./imgs/screenshot_01.png)
 
-## 项目简介
+## 一、 项目简介
 
 IGisMapEditor 是一个基于 Microsoft Foundation Classes (MFC) 框架开发的桌面端地理信息系统（GIS）地图编辑器应用程序。该软件提供了地图绘制、编辑、空间分析等基础 GIS 功能，适用于中小型地理信息应用场景。
 
 **📖 详细设计说明文档：** 请查看 [IGisMapEditor_Design.md](./IGisMapEditor_Design.md) 了解项目的主要功能、技术架构、核心模块和使用说明。
 
-## 项目来源
+## 二、 项目来源
 
 本项目是从原作者 [ndsorrowchi](https://github.com/ndsorrowchi) 的 GitHub 仓库 [IGisMapEditor](https://github.com/ndsorrowchi/IGisMapEditor) fork 而来。原始项目使用 Visual Studio 2010 开发，最后更新于 7 年前。
 
-## 项目结构
+## 三、 项目结构
 
 ```
 IGisMapEditor/
@@ -29,7 +29,7 @@ IGisMapEditor/
 └── imgs/                    # 项目截图
 ```
 
-## 编译说明
+## 四、 编译说明
 
 ### 系统要求
 - Windows 10/11 操作系统
@@ -39,16 +39,16 @@ IGisMapEditor/
 ### 编译步骤
 1. 使用 Visual Studio 2022 打开 `IGisMapEditor.sln` 解决方案文件
 2. 选择配置：Debug 或 Release
-3. 选择平台：Win32
+3. 选择平台：x64（推荐） 或 Win32
 4. 点击"生成" → "生成解决方案"
 5. 等待编译完成
 
 ### 注意事项
-- ⚠️ 编译时**暂不要**添加 `/utf-8` 编译选项
+- ⚠️ 编译时**暂不要**添加 `/utf-8` 编译选项（原因见下文）
 - ⚠️ 确保已安装 MFC 组件（Visual Studio 安装时选择"使用 C++ 的桌面开发"工作负载）
 - ⚠️ 需要配置 SQL Server 数据库连接信息才能完整使用软件功能
 
-## 编译环境升级与修改说明
+## 五、 编译环境升级与修改说明
 
 本版本对原始项目的编译环境进行了全面升级，并修复了相关的编译错误。
 
@@ -137,7 +137,7 @@ Basepic & operator =(const Basepic &l) { ... }
 **修改文件：**
 - `IGisMapEditor/IGisMapEditor.vcxproj` (移除第 58 行的 `/utf-8` 编译选项)
 
-## 已知问题与限制
+## 六、已知问题与限制
 
 1. **数据格式专有**：*.igp 格式为自定义格式，不兼容其他 GIS 软件
 2. **无空间索引**：未使用 SQL Server 原生空间数据类型，查询效率较低
@@ -145,7 +145,7 @@ Basepic & operator =(const Basepic &l) { ... }
 4. **互操作性差**：无法直接与其他 GIS 软件交换数据
 5. **功能有限**：仅提供基础的 GIS 功能，不适合复杂的空间分析
 
-## 未来改进方向
+## 七、未来改进方向
 
 1. **迁移到 UTF-8 编码**：统一使用 UTF-8 编码，提高跨平台兼容性
 2. **使用原生空间数据类型**：采用 SQL Server 的 `geography`/`geometry` 类型
@@ -154,23 +154,14 @@ Basepic & operator =(const Basepic &l) { ... }
 5. **增强空间分析**：添加更多空间分析功能
 6. **改进用户界面**：现代化 UI 设计，提升用户体验
 
-## 许可证
+## 八、 许可证
 
 本项目遵循原始项目的许可证。请查看原始仓库 [ndsorrowchi/IGisMapEditor](https://github.com/ndsorrowchi/IGisMapEditor) 了解详细信息。
 
-## 贡献
+## 九、 贡献
 
 欢迎提交 Issue 和 Pull Request 来改进这个项目！
 
-## 致谢
+## 十、 致谢
 
 感谢原作者 [ndsorrowchi](https://github.com/ndsorrowchi) 创建了这个项目。
-
-## 联系方式
-
-- 本仓库：https://github.com/xrui94/IGisMapEditor
-- 原始仓库：https://github.com/ndsorrowchi/IGisMapEditor
-
----
-
-**注意**：本版本已升级编译环境到 Visual Studio 2022，并修复了所有编译错误，可以直接编译运行。
