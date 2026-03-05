@@ -6,125 +6,47 @@
 
 IGisMapEditor 是一个基于 Microsoft Foundation Classes (MFC) 框架开发的桌面端地理信息系统（GIS）地图编辑器应用程序。该软件提供了地图绘制、编辑、空间分析等基础 GIS 功能，适用于中小型地理信息应用场景。
 
+**📖 详细设计说明文档：** 请查看 [IGisMapEditor_Design.md](./IGisMapEditor_Design.md) 了解项目的主要功能、技术架构、核心模块和使用说明。
+
 ## 项目来源
 
 本项目是从原作者 [ndsorrowchi](https://github.com/ndsorrowchi) 的 GitHub 仓库 [IGisMapEditor](https://github.com/ndsorrowchi/IGisMapEditor) fork 而来。原始项目使用 Visual Studio 2010 开发，最后更新于 7 年前。
 
-## 主要功能
+## 项目结构
 
-### 地图编辑功能
-- ✏️ **矢量要素绘制**：支持创建点、线、面（多边形）等矢量图形要素
-- ✏️ **图形编辑**：编辑现有图形的几何属性和样式
-- ✏️ **样式自定义**：支持自定义颜色、线型、填充样式、大小等
-- ✏️ **文本注记**：添加文本标记和注记功能
-
-### 数据库管理
-- 🗄️ **SQL Server 集成**：使用 SQL Server 数据库存储地理空间数据
-- 🗄️ **数据库连接**：支持连接到 SQL Server 数据库
-- 🗄️ **数据表管理**：创建、删除、查询地理数据表
-- 🗄️ **数据持久化**：图层数据的增删改查操作
-
-### 空间分析功能
-- 📊 **叠置分析**：
-  - 线与多边形叠置分析 (LineDjPolygon)
-  - 多边形与多边形叠置分析 (PolyDjPoly)
-- 📊 **缓冲区分析** (HcAnalyse)
-
-### 地图浏览功能
-- 🔍 **地图缩放**：放大、缩小、平移操作
-- 🔍 **坐标显示**：实时显示鼠标位置坐标
-- 🔍 **底图支持**：支持影像底图显示
-- 🔍 **坐标转换**：地理坐标与屏幕坐标转换
-
-### 图层管理
-- 📂 **图层操作**：添加、删除、排序图层
-- 📂 **可见性控制**：控制图层的显示/隐藏
-- 📂 **编辑状态管理**：设置图层的可编辑状态
-- 📂 **多图层叠加**：支持多个图层的叠加显示
-
-### 空间查询
-- 🔎 **矩形范围查询**：按矩形范围查询要素
-- 🔎 **圆形范围查询**：按圆形范围查询要素
-- 🔎 **多边形范围查询**：按多边形范围查询要素
-- 🔎 **多种要素类型**：支持查询点、线、面、标记等要素
-
-## 技术架构
-
-### 开发框架
-- **MFC (Microsoft Foundation Classes)**：Windows 桌面应用程序框架
-- **SDI 架构**：单文档界面设计
-- **模块化设计**：功能分离清晰，易于扩展
-
-### 编程语言
-- **C++**：主要开发语言
-- **C++17 标准**：使用现代 C++ 特性
-
-### 数据存储
-- **SQL Server**：后端数据库
-- **ADO 技术**：数据库访问技术
-- **自定义数据结构**：不使用 SQL Server 原生空间数据类型
-
-### 数据格式
-
-#### 自定义项目格式：*.igp
-`*.igp` (IGis Project) 是本项目自定义的专有项目文件格式，用于保存地图项目的配置信息。
-
-**文件结构：**
 ```
-底图数量 (整数)
-├─ 底图1信息
-│  ├─ 文件路径/名称
-│  ├─ 左上角坐标 (ltx, lty)
-│  └─ 右下角坐标 (rbx, rby)
-├─ 底图2信息
-│  └─ ...
-图层数量 (整数)
-├─ 数据库服务器地址
-├─ 数据库名称
-└─ 图层信息
-   ├─ 图层1名称
-   ├─ 图层2名称
-   └─ ...
+IGisMapEditor/
+├── IGisMapEditor/           # 主项目目录
+│   ├── res/                 # 资源文件（图标、位图等）
+│   ├── *.h                  # 头文件
+│   ├── *.cpp                # 源代码文件
+│   └── IGisMapEditor.vcxproj # Visual Studio 项目文件
+├── Debug/                   # 调试版本输出目录
+├── Release/                 # 发布版本输出目录
+├── IGisMapEditor.sln        # Visual Studio 解决方案文件
+├── README.md                # 项目说明文档
+├── IGisMapEditor_Design.md  # 详细设计说明文档
+└── imgs/                    # 项目截图
 ```
 
-**特点：**
-- 纯文本格式，易于阅读和修改
-- 只保存项目配置，不保存实际地理数据
-- 实际地理数据存储在 SQL Server 数据库中
-- 依赖特定数据库结构，互操作性较低
+## 编译说明
 
-#### SQL Server 数据存储
-本项目使用传统的关系型表结构存储地理数据，而非 SQL Server 的原生空间数据类型（`geography`/`geometry`）。
+### 系统要求
+- Windows 10/11 操作系统
+- Visual Studio 2022 (Community 或更高版本)
+- SQL Server 数据库（用于存储地理数据）
 
-**数据表结构示例：**
+### 编译步骤
+1. 使用 Visual Studio 2022 打开 `IGisMapEditor.sln` 解决方案文件
+2. 选择配置：Debug 或 Release
+3. 选择平台：Win32
+4. 点击"生成" → "生成解决方案"
+5. 等待编译完成
 
-**点图层表：**
-```sql
-CREATE TABLE [表名] (
-    ID int primary key,
-    pX float,              -- X坐标
-    pY float,              -- Y坐标  
-    color int,             -- 颜色
-    size int,              -- 大小
-    type nvarchar(50)      -- 类型
-)
-```
-
-**线图层表：**
-```sql
-CREATE TABLE [表名] (
-    ID int primary key,
-    LColor int,            -- 线颜色
-    LType nvarchar(50),    -- 线类型
-    LWidth int,            -- 线宽度
-    xMin float,            -- 边界框最小X
-    yMin float,            -- 边界框最小Y
-    xMax float,            -- 边界框最大X
-    yMax float,            -- 边界框最大Y
-    Point image,           -- 点集（二进制存储）
-    pCount int             -- 点数量
-)
-```
+### 注意事项
+- ⚠️ 编译时**暂不要**添加 `/utf-8` 编译选项
+- ⚠️ 确保已安装 MFC 组件（Visual Studio 安装时选择"使用 C++ 的桌面开发"工作负载）
+- ⚠️ 需要配置 SQL Server 数据库连接信息才能完整使用软件功能
 
 ## 编译环境升级与修改说明
 
@@ -143,6 +65,10 @@ CREATE TABLE [表名] (
 3. **C++ 标准升级**
    - 原版本：C++98/03
    - 新版本：C++17
+
+4. **目标程序架构升级**
+   - 原版本：Win32
+   - 新版本：x64
 
 ### 编译错误修复
 
@@ -210,100 +136,6 @@ Basepic & operator =(const Basepic &l) { ... }
 
 **修改文件：**
 - `IGisMapEditor/IGisMapEditor.vcxproj` (移除第 58 行的 `/utf-8` 编译选项)
-
-## 编译说明
-
-### 系统要求
-- Windows 10/11 操作系统
-- Visual Studio 2022 (Community 或更高版本)
-- SQL Server 数据库（用于存储地理数据）
-
-### 编译步骤
-1. 使用 Visual Studio 2022 打开 `IGisMapEditor.sln` 解决方案文件
-2. 选择配置：Debug 或 Release
-3. 选择平台：Win32
-4. 点击"生成" → "生成解决方案"
-5. 等待编译完成
-
-### 注意事项
-- ⚠️ 编译时**不要**添加 `/utf-8` 编译选项
-- ⚠️ 确保已安装 MFC 组件（Visual Studio 安装时选择"使用 C++ 的桌面开发"工作负载）
-- ⚠️ 需要配置 SQL Server 数据库连接信息才能完整使用软件功能
-
-## 使用说明
-
-### 首次使用
-1. 启动 IGisMapEditor 应用程序
-2. 连接到 SQL Server 数据库（菜单：数据库 → 连接数据库）
-3. 创建新图层或打开现有项目（*.igp 文件）
-4. 开始绘制和编辑地图要素
-
-### 基本操作
-- **绘制要素**：选择工具栏中的绘图工具（点、线、面等）
-- **编辑要素**：使用编辑工具修改已有要素
-- **查询要素**：使用空间查询工具查找指定范围内的要素
-- **图层管理**：在左侧图层树中管理图层可见性和编辑状态
-
-### 项目文件
-- 创建新项目：文件 → 新建
-- 打开项目：文件 → 打开（选择 *.igp 文件）
-- 保存项目：文件 → 保存/另存为
-
-## 项目结构
-
-```
-IGisMapEditor/
-├── IGisMapEditor/           # 主项目目录
-│   ├── res/                 # 资源文件（图标、位图等）
-│   ├── *.h                  # 头文件
-│   ├── *.cpp                # 源代码文件
-│   └── IGisMapEditor.vcxproj # Visual Studio 项目文件
-├── Debug/                   # 调试版本输出目录
-├── Release/                 # 发布版本输出目录
-├── IGisMapEditor.sln        # Visual Studio 解决方案文件
-├── README.md                # 项目说明文档
-└── imgs/                    # 项目截图
-```
-
-## 核心模块说明
-
-### 数据库模块 (DataBase.h/cpp)
-- 数据库连接管理
-- SQL 语句执行
-- 地理数据的增删改查
-
-### 图形数据结构 (DataTemplate.h)
-- `gisPoint`：点要素类
-- `gisLine`：线要素类
-- `gisPolygon`：多边形要素类
-- `gisMarker`：标记要素类
-
-### 图形绘制工具 (GraphTool.h/cpp)
-- `CPointTool`：点绘制工具
-- `CLineTool`：线绘制工具
-- `CPolyTool`：多边形绘制工具
-- `CNoteTool`：注记工具
-
-### 图形编辑工具 (AlterBaseTool.h/cpp)
-- 点、线、面、标记的编辑操作
-- 移动、修改、删除功能
-- 点的添加和删除
-
-### 空间搜索工具 (SearchTool.h/cpp)
-- 矩形范围搜索
-- 圆形范围搜索
-- 多边形范围搜索
-
-### 坐标系统 (Cordins.h/cpp)
-- 坐标转换和管理
-- 缩放管理
-- 地理坐标与屏幕坐标转换
-
-### 图层管理 (treelayers.h/cpp)
-- `Layer`：图层类
-- `Basepic`：底图类
-- `TreeItems`：图层集合管理
-- `ImageItems`：影像集合管理
 
 ## 已知问题与限制
 
