@@ -1,4 +1,344 @@
 # IGisMapEditor
 
-
 ![screenshot_01.png](./imgs/screenshot_01.png)
+
+## 项目简介
+
+IGisMapEditor 是一个基于 Microsoft Foundation Classes (MFC) 框架开发的桌面端地理信息系统（GIS）地图编辑器应用程序。该软件提供了地图绘制、编辑、空间分析等基础 GIS 功能，适用于中小型地理信息应用场景。
+
+## 项目来源
+
+本项目是从原作者 [ndsorrowchi](https://github.com/ndsorrowchi) 的 GitHub 仓库 [IGisMapEditor](https://github.com/ndsorrowchi/IGisMapEditor) fork 而来。原始项目使用 Visual Studio 2010 开发，最后更新于 7 年前。
+
+## 主要功能
+
+### 地图编辑功能
+- ✏️ **矢量要素绘制**：支持创建点、线、面（多边形）等矢量图形要素
+- ✏️ **图形编辑**：编辑现有图形的几何属性和样式
+- ✏️ **样式自定义**：支持自定义颜色、线型、填充样式、大小等
+- ✏️ **文本注记**：添加文本标记和注记功能
+
+### 数据库管理
+- 🗄️ **SQL Server 集成**：使用 SQL Server 数据库存储地理空间数据
+- 🗄️ **数据库连接**：支持连接到 SQL Server 数据库
+- 🗄️ **数据表管理**：创建、删除、查询地理数据表
+- 🗄️ **数据持久化**：图层数据的增删改查操作
+
+### 空间分析功能
+- 📊 **叠置分析**：
+  - 线与多边形叠置分析 (LineDjPolygon)
+  - 多边形与多边形叠置分析 (PolyDjPoly)
+- 📊 **缓冲区分析** (HcAnalyse)
+
+### 地图浏览功能
+- 🔍 **地图缩放**：放大、缩小、平移操作
+- 🔍 **坐标显示**：实时显示鼠标位置坐标
+- 🔍 **底图支持**：支持影像底图显示
+- 🔍 **坐标转换**：地理坐标与屏幕坐标转换
+
+### 图层管理
+- 📂 **图层操作**：添加、删除、排序图层
+- 📂 **可见性控制**：控制图层的显示/隐藏
+- 📂 **编辑状态管理**：设置图层的可编辑状态
+- 📂 **多图层叠加**：支持多个图层的叠加显示
+
+### 空间查询
+- 🔎 **矩形范围查询**：按矩形范围查询要素
+- 🔎 **圆形范围查询**：按圆形范围查询要素
+- 🔎 **多边形范围查询**：按多边形范围查询要素
+- 🔎 **多种要素类型**：支持查询点、线、面、标记等要素
+
+## 技术架构
+
+### 开发框架
+- **MFC (Microsoft Foundation Classes)**：Windows 桌面应用程序框架
+- **SDI 架构**：单文档界面设计
+- **模块化设计**：功能分离清晰，易于扩展
+
+### 编程语言
+- **C++**：主要开发语言
+- **C++17 标准**：使用现代 C++ 特性
+
+### 数据存储
+- **SQL Server**：后端数据库
+- **ADO 技术**：数据库访问技术
+- **自定义数据结构**：不使用 SQL Server 原生空间数据类型
+
+### 数据格式
+
+#### 自定义项目格式：*.igp
+`*.igp` (IGis Project) 是本项目自定义的专有项目文件格式，用于保存地图项目的配置信息。
+
+**文件结构：**
+```
+底图数量 (整数)
+├─ 底图1信息
+│  ├─ 文件路径/名称
+│  ├─ 左上角坐标 (ltx, lty)
+│  └─ 右下角坐标 (rbx, rby)
+├─ 底图2信息
+│  └─ ...
+图层数量 (整数)
+├─ 数据库服务器地址
+├─ 数据库名称
+└─ 图层信息
+   ├─ 图层1名称
+   ├─ 图层2名称
+   └─ ...
+```
+
+**特点：**
+- 纯文本格式，易于阅读和修改
+- 只保存项目配置，不保存实际地理数据
+- 实际地理数据存储在 SQL Server 数据库中
+- 依赖特定数据库结构，互操作性较低
+
+#### SQL Server 数据存储
+本项目使用传统的关系型表结构存储地理数据，而非 SQL Server 的原生空间数据类型（`geography`/`geometry`）。
+
+**数据表结构示例：**
+
+**点图层表：**
+```sql
+CREATE TABLE [表名] (
+    ID int primary key,
+    pX float,              -- X坐标
+    pY float,              -- Y坐标  
+    color int,             -- 颜色
+    size int,              -- 大小
+    type nvarchar(50)      -- 类型
+)
+```
+
+**线图层表：**
+```sql
+CREATE TABLE [表名] (
+    ID int primary key,
+    LColor int,            -- 线颜色
+    LType nvarchar(50),    -- 线类型
+    LWidth int,            -- 线宽度
+    xMin float,            -- 边界框最小X
+    yMin float,            -- 边界框最小Y
+    xMax float,            -- 边界框最大X
+    yMax float,            -- 边界框最大Y
+    Point image,           -- 点集（二进制存储）
+    pCount int             -- 点数量
+)
+```
+
+## 编译环境升级与修改说明
+
+本版本对原始项目的编译环境进行了全面升级，并修复了相关的编译错误。
+
+### 环境升级
+
+1. **平台工具集升级**
+   - 原版本：Visual Studio 2010 (v100)
+   - 新版本：Visual Studio 2022 (v143)
+
+2. **Windows SDK 升级**
+   - 原版本：Windows 7 SDK
+   - 新版本：10.0.22621.0 (Windows 11 SDK)
+
+3. **C++ 标准升级**
+   - 原版本：C++98/03
+   - 新版本：C++17
+
+### 编译错误修复
+
+#### 1. abs 函数调用不明确问题
+
+**问题描述：**
+在 `AlterBaseTool.cpp` 和 `Cordins.cpp` 中，使用 `abs()` 函数处理浮点型参数时出现"重载函数调用不明确"的编译错误。
+
+**原因分析：**
+在 C++17 标准中，`<cmath>` 头文件提供了多个 `abs` 函数重载版本（`abs(int)`、`abs(double)`、`abs(float)` 等），当参数类型不明确时，编译器无法确定应该调用哪个版本。
+
+**修复方案：**
+将浮点型参数的 `abs()` 函数调用替换为 `fabs()` 函数：
+```cpp
+// 修复前
+abs(this->gp.point.x - this->tempgp.point.x)
+
+// 修复后
+fabs(this->gp.point.x - this->tempgp.point.x)
+```
+
+**修改文件：**
+- `IGisMapEditor/AlterBaseTool.cpp` (第 386 行)
+- `IGisMapEditor/AlterBaseTool.cpp` (第 535、567、1033、1035、1069、1071、1091、1093 行)
+- `IGisMapEditor/Cordins.cpp` (第 113、117 行)
+
+#### 2. 赋值运算符缺少 const 修饰符问题
+
+**问题描述：**
+在 `treelayers.h` 中，`Layer` 和 `Basepic` 类的赋值运算符参数类型缺少 `const` 修饰符，导致 `std::list` 容器在执行某些操作时出现编译错误。
+
+**原因分析：**
+在 C++17 中，标准库容器（如 `std::list`）的某些内部操作需要通过 `const` 引用进行赋值操作。如果赋值运算符不接受 `const` 引用参数，容器将无法正确执行这些操作。
+
+**修复方案：**
+为赋值运算符的参数添加 `const` 修饰符：
+```cpp
+// 修复前
+Layer & operator =(Layer &l) { ... }
+Basepic & operator =(Basepic &l) { ... }
+
+// 修复后
+Layer & operator =(const Layer &l) { ... }
+Basepic & operator =(const Basepic &l) { ... }
+```
+
+**修改文件：**
+- `IGisMapEditor/treelayers.h` (第 33 行 - Layer 类)
+- `IGisMapEditor/treelayers.h` (第 92 行 - Basepic 类)
+
+#### 3. 编码格式问题
+
+**问题描述：**
+添加 `/utf-8` 编译选项后，出现大量语法错误和未知字符错误。
+
+**原因分析：**
+原始项目的源代码文件使用 GB2312 编码（中文注释和字符串），但编译器被强制按 UTF-8 解析，导致中文字符串变成乱码，进而引发语法错误。
+
+**修复方案：**
+移除 `/utf-8` 编译选项，让编译器按系统默认编码（GB2312）解析源文件。
+
+**重要提示：**
+- ⚠️ **当前配置**：源文件使用 GB2312 编码，编译时**切勿**添加 `/utf-8` 编译选项
+- 💡 **未来建议**：建议将所有代码文件统一转换为 UTF-8 编码，然后添加 `/utf-8` 编译选项，以提高代码的跨平台兼容性
+
+**修改文件：**
+- `IGisMapEditor/IGisMapEditor.vcxproj` (移除第 58 行的 `/utf-8` 编译选项)
+
+## 编译说明
+
+### 系统要求
+- Windows 10/11 操作系统
+- Visual Studio 2022 (Community 或更高版本)
+- SQL Server 数据库（用于存储地理数据）
+
+### 编译步骤
+1. 使用 Visual Studio 2022 打开 `IGisMapEditor.sln` 解决方案文件
+2. 选择配置：Debug 或 Release
+3. 选择平台：Win32
+4. 点击"生成" → "生成解决方案"
+5. 等待编译完成
+
+### 注意事项
+- ⚠️ 编译时**不要**添加 `/utf-8` 编译选项
+- ⚠️ 确保已安装 MFC 组件（Visual Studio 安装时选择"使用 C++ 的桌面开发"工作负载）
+- ⚠️ 需要配置 SQL Server 数据库连接信息才能完整使用软件功能
+
+## 使用说明
+
+### 首次使用
+1. 启动 IGisMapEditor 应用程序
+2. 连接到 SQL Server 数据库（菜单：数据库 → 连接数据库）
+3. 创建新图层或打开现有项目（*.igp 文件）
+4. 开始绘制和编辑地图要素
+
+### 基本操作
+- **绘制要素**：选择工具栏中的绘图工具（点、线、面等）
+- **编辑要素**：使用编辑工具修改已有要素
+- **查询要素**：使用空间查询工具查找指定范围内的要素
+- **图层管理**：在左侧图层树中管理图层可见性和编辑状态
+
+### 项目文件
+- 创建新项目：文件 → 新建
+- 打开项目：文件 → 打开（选择 *.igp 文件）
+- 保存项目：文件 → 保存/另存为
+
+## 项目结构
+
+```
+IGisMapEditor/
+├── IGisMapEditor/           # 主项目目录
+│   ├── res/                 # 资源文件（图标、位图等）
+│   ├── *.h                  # 头文件
+│   ├── *.cpp                # 源代码文件
+│   └── IGisMapEditor.vcxproj # Visual Studio 项目文件
+├── Debug/                   # 调试版本输出目录
+├── Release/                 # 发布版本输出目录
+├── IGisMapEditor.sln        # Visual Studio 解决方案文件
+├── README.md                # 项目说明文档
+└── imgs/                    # 项目截图
+```
+
+## 核心模块说明
+
+### 数据库模块 (DataBase.h/cpp)
+- 数据库连接管理
+- SQL 语句执行
+- 地理数据的增删改查
+
+### 图形数据结构 (DataTemplate.h)
+- `gisPoint`：点要素类
+- `gisLine`：线要素类
+- `gisPolygon`：多边形要素类
+- `gisMarker`：标记要素类
+
+### 图形绘制工具 (GraphTool.h/cpp)
+- `CPointTool`：点绘制工具
+- `CLineTool`：线绘制工具
+- `CPolyTool`：多边形绘制工具
+- `CNoteTool`：注记工具
+
+### 图形编辑工具 (AlterBaseTool.h/cpp)
+- 点、线、面、标记的编辑操作
+- 移动、修改、删除功能
+- 点的添加和删除
+
+### 空间搜索工具 (SearchTool.h/cpp)
+- 矩形范围搜索
+- 圆形范围搜索
+- 多边形范围搜索
+
+### 坐标系统 (Cordins.h/cpp)
+- 坐标转换和管理
+- 缩放管理
+- 地理坐标与屏幕坐标转换
+
+### 图层管理 (treelayers.h/cpp)
+- `Layer`：图层类
+- `Basepic`：底图类
+- `TreeItems`：图层集合管理
+- `ImageItems`：影像集合管理
+
+## 已知问题与限制
+
+1. **数据格式专有**：*.igp 格式为自定义格式，不兼容其他 GIS 软件
+2. **无空间索引**：未使用 SQL Server 原生空间数据类型，查询效率较低
+3. **编码问题**：源文件使用 GB2312 编码，需要特别注意编译选项
+4. **互操作性差**：无法直接与其他 GIS 软件交换数据
+5. **功能有限**：仅提供基础的 GIS 功能，不适合复杂的空间分析
+
+## 未来改进方向
+
+1. **迁移到 UTF-8 编码**：统一使用 UTF-8 编码，提高跨平台兼容性
+2. **使用原生空间数据类型**：采用 SQL Server 的 `geography`/`geometry` 类型
+3. **添加空间索引**：提高空间查询性能
+4. **支持标准格式**：增加对 Shapefile、GeoJSON 等标准格式的支持
+5. **增强空间分析**：添加更多空间分析功能
+6. **改进用户界面**：现代化 UI 设计，提升用户体验
+
+## 许可证
+
+本项目遵循原始项目的许可证。请查看原始仓库 [ndsorrowchi/IGisMapEditor](https://github.com/ndsorrowchi/IGisMapEditor) 了解详细信息。
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request 来改进这个项目！
+
+## 致谢
+
+感谢原作者 [ndsorrowchi](https://github.com/ndsorrowchi) 创建了这个项目。
+
+## 联系方式
+
+- 本仓库：https://github.com/xrui94/IGisMapEditor
+- 原始仓库：https://github.com/ndsorrowchi/IGisMapEditor
+
+---
+
+**注意**：本版本已升级编译环境到 Visual Studio 2022，并修复了所有编译错误，可以直接编译运行。
